@@ -16,7 +16,7 @@ export default function Home() {
         <h1 className={styles.title}>Quản lý hồ sơ xây dựng</h1>
 
         <div className={styles.description}>Danh Sách</div>
-        <div class="flex flex-col">
+        <div className="flex flex-col">
           <div></div>
         </div>
         {/* <div className={styles.grid}>
