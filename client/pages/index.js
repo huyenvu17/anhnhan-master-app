@@ -1,8 +1,34 @@
-import Head from "next/head";
-import Image from "next/image";
-import { Header } from "../components/Header";
-import styles from "../styles/Home.module.css";
+import Head from "next/head"
+import Image from "next/image"
+import { Header } from "../components/Header"
+import styles from "../styles/Home.module.css"
 
+const data = [
+  {
+    name: "Khởi Sự Kinh Doanh",
+  },
+  {
+    name: "Văn bản kinh doanh",
+  },
+  {
+    name: "Văn bản đất đai 1",
+  },
+  {
+    name: "Văn bản đất đai 2",
+  },
+  {
+    name: "Văn bản đất đai 3",
+  },
+  {
+    name: "Văn bản đất đai 4",
+  },
+  {
+    name: "Văn bản đất đai 5",
+  },
+  {
+    name: "Văn bản đất đai 6",
+  },
+]
 export default function Home() {
   return (
     <div className={styles.container}>
@@ -17,7 +43,12 @@ export default function Home() {
 
         <div className={styles.description}>Danh Sách</div>
         <div className="flex flex-col">
-          <div></div>
+          {data?.map((document, index) => (
+            <div key={index}>
+              <span>&rarr;</span>
+              <span>{document?.name}</span>
+            </div>
+          ))}
         </div>
         {/* <div className={styles.grid}>
           <a href="https://nextjs.org/docs" className={styles.card}>
@@ -62,5 +93,5 @@ export default function Home() {
         </a>
       </footer>
     </div>
-  );
+  )
 }
