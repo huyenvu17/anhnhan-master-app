@@ -1,32 +1,41 @@
 import Head from "next/head"
 import Image from "next/image"
+import Link from "next/link"
 import { Header } from "../components/Header"
 import styles from "../styles/Home.module.css"
 
 const data = [
   {
     name: "Khởi Sự Kinh Doanh",
+    url: "khoi-su-kinh-doanh",
   },
   {
     name: "Văn bản kinh doanh",
+    url: "van-ban-kinh-doanh",
   },
   {
     name: "Văn bản đất đai 1",
+    url: "van-ban-dat-dai-1",
   },
   {
     name: "Văn bản đất đai 2",
+    url: "van-ban-dat-dai-2",
   },
   {
     name: "Văn bản đất đai 3",
+    url: "van-ban-dat-dai-3",
   },
   {
     name: "Văn bản đất đai 4",
+    url: "van-ban-dat-dai-4",
   },
   {
     name: "Văn bản đất đai 5",
+    url: "van-ban-dat-dai-5",
   },
   {
     name: "Văn bản đất đai 6",
+    url: "van-ban-dat-dai-6",
   },
 ]
 export default function Home() {
@@ -42,12 +51,12 @@ export default function Home() {
         <h1 className={styles.title}>Quản lý hồ sơ xây dựng</h1>
 
         <div className={styles.description}>Danh Sách</div>
-        <div className="flex flex-col">
+        <div className="">
           {data?.map((document, index) => (
-            <div key={index}>
+            <Link key={index} href={document?.url}>
               <span>&rarr;</span>
               <span>{document?.name}</span>
-            </div>
+            </Link>
           ))}
         </div>
         {/* <div className={styles.grid}>
