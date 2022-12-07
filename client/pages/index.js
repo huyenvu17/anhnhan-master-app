@@ -38,7 +38,8 @@ const data = [
     url: "van-ban-dat-dai-6",
   },
 ]
-export default function Home() {
+export default function Home({ documents }) {
+  console.log("documents", documents)
   return (
     <div className={styles.container}>
       <Head>
@@ -46,16 +47,20 @@ export default function Home() {
         <meta name="description" content="Construction Documents Management" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Header />
-      <main className={styles.main}>
-        <h1 className={styles.title}>Quản lý hồ sơ xây dựng</h1>
 
-        <div className={styles.description}>Danh Sách</div>
-        <div className="">
-          {data?.map((document, index) => (
-            <Link key={index} href={document?.url}>
+      <main className={styles.main}>
+        <h1 className={styles.title}>Management List</h1>
+
+        <div className={styles.description}>List</div>
+        <div className="flex flex-col">
+          {documents?.data?.map(({ attributes, id }) => (
+            <Link
+              key={id}
+              href={attributes?.slug || ""}
+              className="p-2 max-w-sm mx-auto border border-orange-300 hover:bg-orange-200 rounded-md shadow-lg space-x-4"
+            >
               <span>&rarr;</span>
-              <span>{document?.name}</span>
+              <span>{attributes?.name}</span>
             </Link>
           ))}
         </div>
@@ -103,4 +108,15 @@ export default function Home() {
       </footer>
     </div>
   )
+}
+
+export async function getServerSideProps() {
+  const response = await fetch(`${process.env.PUBLIC_URL}/documents`)
+  const data = await response.json()
+
+  return {
+    props: {
+      documents: data,
+    },
+  }
 }
