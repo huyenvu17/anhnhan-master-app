@@ -48,8 +48,8 @@ export default function Home({ documents }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>Management List</h1>
+      <main>
+        <h1 className={styles.title}>Danh Mục Văn Bản</h1>
 
         <div className={styles.description}>List</div>
         <div className="flex flex-col">
