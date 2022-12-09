@@ -1,11 +1,27 @@
 import Link from "next/link"
 import React from "react"
 
-export default function login() {
+export default function register() {
   return (
     <div class="w-full max-w-lg mx-auto mt-10">
-      <p className="text-3xl font-semibold text-center my-5">Đăng Nhập</p>
+      <p className="text-3xl font-semibold text-center my-5">
+        Đăng Ký Tài Khoản
+      </p>
       <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <div class="mb-4">
+          <label
+            class="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="fullname"
+          >
+            Họ Tên
+          </label>
+          <input
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="fullname"
+            type="text"
+            placeholder="Nguyễn Văn A"
+          />
+        </div>
         <div class="mb-4">
           <label
             class="block text-gray-700 text-sm font-bold mb-2"
@@ -16,7 +32,7 @@ export default function login() {
           <input
             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="email"
-            type="text"
+            type="email"
             placeholder="Email"
           />
         </div>
@@ -40,19 +56,19 @@ export default function login() {
             class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="button"
           >
-            Đăng Nhập
+            Đăng Ký
           </button>
           <Link
             class="inline-block align-baseline font-bold text-sm"
-            href="/register"
+            href="/login"
           >
-            Chưa có tài khoản?{" "}
-            <span className="text-blue-500 hover:text-blue-800">Đăng Ký</span>
+            Đã có tài khoản?{" "}
+            <span className="text-blue-500 hover:text-blue-800">Đăng Nhập</span>
           </Link>
         </div>
       </form>
       <p class="text-center text-gray-500 text-xs">
-        &copy;2020 Acme Corp. All rights reserved.
+        &copy;2022 Nhan Nguyen. Dịch Vụ Quản Lý Hồ Sơ Xây Dựng
       </p>
     </div>
   )

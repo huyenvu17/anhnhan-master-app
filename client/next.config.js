@@ -5,7 +5,7 @@ const nextConfig = {
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
-  trailingSlash: true,
+  trailingSlash: false,
 }
 
 module.exports = nextConfig
