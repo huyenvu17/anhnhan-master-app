@@ -1,74 +1,114 @@
 import Link from "next/link"
-import React from "react"
+import React, { useState } from "react"
+import { useForm } from "react-hook-form"
+import * as yup from "yup"
+import { yupResolver } from "@hookform/resolvers"
 
 export default function register() {
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+
+  const schema = yup.object().shape({
+    name: yup.string().required(),
+    email: yup.string().email().required(),
+    password: yup.string().required().min(6),
+  })
+
+  const { register, handleSubmit, watch, errors } = useForm({
+    mode: "onBlur",
+    resolver: yupResolver(schema),
+  })
+  const onSubmit = (data) => {
+    console.log(data)
+  }
   return (
-    <div class="w-full max-w-lg mx-auto mt-10">
+    <div className="w-full max-w-lg mx-auto mt-10">
       <p className="text-3xl font-semibold text-center my-5">
         Đăng Ký Tài Khoản
       </p>
-      <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-        <div class="mb-4">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+      >
+        <div className="mb-8">
           <label
-            class="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="fullname"
+            htmlFor="name"
+            className={`block font-bold text-sm mb-2 ${
+              errors?.name ? "text-red-400" : "text-gray-700"
+            }`}
           >
             Họ Tên
           </label>
           <input
-            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="fullname"
             type="text"
-            placeholder="Nguyễn Văn A"
+            name="name"
+            id="name"
+            placeholder="Họ và tên"
+            className={`shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline ${
+              errors?.name ? "border-red-400" : "text-gray-700"
+            }`}
+            ref={register}
           />
+          {errors?.name && (
+            <p className="text-red-500 text-sm mt-2">Vui lòng nhập họ tên.</p>
+          )}
         </div>
-        <div class="mb-4">
+
+        <div className="mb-8">
           <label
-            class="block text-gray-700 text-sm font-bold mb-2"
             htmlFor="email"
+            className={`block font-bold text-sm mb-2 ${
+              errors?.email ? "text-red-400" : "text-gray-700"
+            }`}
           >
             Email
           </label>
           <input
-            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            type="text"
+            name="email"
             id="email"
-            type="email"
-            placeholder="Email"
+            placeholder="example@gmail.com"
+            className={`shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline ${
+              errors?.email ? "border-red-400" : "text-gray-700"
+            }`}
+            ref={register}
           />
+          {errors?.email && (
+            <p className="text-red-500 text-sm mt-2">Vui lòng nhập email.</p>
+          )}
         </div>
-        <div class="mb-6">
+
+        <div className="mb-8">
           <label
-            class="block text-gray-700 text-sm font-bold mb-2"
             htmlFor="password"
+            className={`block font-bold text-sm mb-2 ${
+              errors?.password ? "text-red-400" : "text-gray-700"
+            }`}
           >
             Mật Khẩu
           </label>
           <input
-            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-            id="password"
             type="password"
-            placeholder="******************"
+            name="password"
+            id="password"
+            placeholder="password"
+            className={`shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline text-gray-700 ${
+              errors?.password ? "border-red-400" : "text-gray-700"
+            }`}
+            ref={register()}
           />
-          {/* <p class="text-red-500 text-xs italic">Please choose a password.</p> */}
+          {errors?.password && (
+            <p className="text-red-500 text-sm mt-2">Vui lòng nhập mật khẩu.</p>
+          )}
         </div>
-        <div class="flex items-center justify-between">
-          <button
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            type="button"
-          >
-            Đăng Ký
-          </button>
-          <Link
-            class="inline-block align-baseline font-bold text-sm"
-            href="/login"
-          >
-            Đã có tài khoản?{" "}
-            <span className="text-blue-500 hover:text-blue-800">Đăng Nhập</span>
-          </Link>
-        </div>
+
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+          Đăng Ký
+        </button>
       </form>
-      <p class="text-center text-gray-500 text-xs">
-        &copy;2022 Nhan Nguyen. Dịch Vụ Quản Lý Hồ Sơ Xây Dựng
+
+      <p className="text-center text-gray-500 text-xs">
+        &copy;2022 Nhan Nguyen. All rights reserved.
       </p>
     </div>
   )
