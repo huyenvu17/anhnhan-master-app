@@ -46,10 +46,7 @@ export const Header = () => {
           <button
             onClick={() => {
               localStorage.clear()
-              router.push({
-                pathname: "/",
-                query: { returnUrl: router.asPath },
-              })
+              window.location.reload()
             }}
             className="inline-block leading-none border ml-2 rounded px-4 py-2 text-white border-orange-300 hover:text-white hover:border-white mt-4 lg:mt-0"
           >

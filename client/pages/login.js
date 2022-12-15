@@ -32,10 +32,7 @@ export default function Login() {
       .then((result) => {
         localStorage.setItem(AUTH_TOKEN, result?.data?.jwt)
         localStorage.setItem(USER_ITEM, JSON.stringify(result?.data?.user))
-        router.push({
-          pathname: "/",
-          query: { returnUrl: router.asPath },
-        })
+        window.location.reload()
       })
       .catch((error) => {
         if (error?.response?.status) {
