@@ -1,10 +1,14 @@
 import Link from "next/link"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers"
+import axios from "axios"
+import { AUTH_TOKEN, USER_ITEM } from "../constants/auth"
+import { useRouter } from "next/router"
 
-export default function login() {
+export default function Login() {
+  const router = useRouter()
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
@@ -17,9 +21,37 @@ export default function login() {
     mode: "onBlur",
     resolver: yupResolver(schema),
   })
-  const onSubmit = (data) => {
-    console.log(data)
+
+  const onSubmit = async (data) => {
+    const info = {
+      identifier: data?.email,
+      password: data?.password,
+    }
+    axios
+      .post("http://localhost:1337/api/auth/local", info)
+      .then((result) => {
+        localStorage.setItem(AUTH_TOKEN, result?.data?.jwt)
+        localStorage.setItem(USER_ITEM, JSON.stringify(result?.data?.user))
+        router.push({
+          pathname: "/",
+          query: { returnUrl: router.asPath },
+        })
+      })
+      .catch((error) => {
+        if (error?.response?.status) {
+        }
+      })
   }
+
+  useEffect(() => {
+    const authToken = localStorage.getItem(AUTH_TOKEN)
+    authToken &&
+      router.push({
+        pathname: "/",
+        query: { returnUrl: router.asPath },
+      })
+  }, [])
+
   return (
     <div className="w-full max-w-lg mx-auto mt-10">
       <p className="text-3xl font-semibold text-center my-5">Đăng Nhập</p>

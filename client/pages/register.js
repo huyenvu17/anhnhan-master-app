@@ -1,15 +1,18 @@
 import Link from "next/link"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers"
+import axios from "axios"
+import { useRouter } from "next/router"
+import { AUTH_TOKEN } from "../constants/auth"
 
-export default function register() {
+export default function Register() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-
+  const router = useRouter()
   const schema = yup.object().shape({
-    name: yup.string().required(),
+    username: yup.string().required(),
     email: yup.string().email().required(),
     password: yup.string().required().min(6),
   })
@@ -20,7 +23,29 @@ export default function register() {
   })
   const onSubmit = (data) => {
     console.log(data)
+    axios
+      .post("http://localhost:1337/api/auth/local/register", data)
+      .then((response) => {
+        console.log("Well done!")
+        console.log("User profile", response.data.user)
+        console.log("User token", response.data.jwt)
+        router.push({
+          pathname: "/login",
+          query: { returnUrl: router.asPath },
+        })
+      })
+      .catch((error) => {
+        console.log("An error occurred:", error.response)
+      })
   }
+  useEffect(() => {
+    const authToken = localStorage.getItem(AUTH_TOKEN)
+    authToken &&
+      router.push({
+        pathname: "/",
+        query: { returnUrl: router.asPath },
+      })
+  }, [])
   return (
     <div className="w-full max-w-lg mx-auto mt-10">
       <p className="text-3xl font-semibold text-center my-5">
@@ -32,25 +57,25 @@ export default function register() {
       >
         <div className="mb-8">
           <label
-            htmlFor="name"
+            htmlFor="username"
             className={`block font-bold text-sm mb-2 ${
               errors?.name ? "text-red-400" : "text-gray-700"
             }`}
           >
-            Họ Tên
+            Username
           </label>
           <input
             type="text"
-            name="name"
-            id="name"
-            placeholder="Họ và tên"
+            name="username"
+            id="username"
+            placeholder="Username"
             className={`shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline ${
-              errors?.name ? "border-red-400" : "text-gray-700"
+              errors?.username ? "border-red-400" : "text-gray-700"
             }`}
             ref={register}
           />
-          {errors?.name && (
-            <p className="text-red-500 text-sm mt-2">Vui lòng nhập họ tên.</p>
+          {errors?.username && (
+            <p className="text-red-500 text-sm mt-2">Vui lòng nhập username.</p>
           )}
         </div>
 
@@ -95,7 +120,7 @@ export default function register() {
             className={`shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline text-gray-700 ${
               errors?.password ? "border-red-400" : "text-gray-700"
             }`}
-            ref={register()}
+            ref={register}
           />
           {errors?.password && (
             <p className="text-red-500 text-sm mt-2">Vui lòng nhập mật khẩu.</p>

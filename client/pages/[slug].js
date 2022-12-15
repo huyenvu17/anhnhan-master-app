@@ -10,7 +10,7 @@ export default function DocumentDetail({ documentInfo }) {
       {documentInfo?.data?.map((document) => {
         const { name, content } = document?.attributes
         return (
-          <div>
+          <div key={name}>
             <p className="text-2xl font-semibold">{name}</p>
             <div>{content}</div>
           </div>

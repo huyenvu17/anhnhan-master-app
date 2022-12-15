@@ -1,7 +1,18 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import Link from "next/link"
+import { USER_ITEM } from "../constants/auth"
+import { useRouter } from "next/router"
 
 export const Header = () => {
+  const router = useRouter()
+  const [user, setUser] = useState(null)
+
+  useEffect(() => {
+    const user_item = JSON.parse(localStorage.getItem(USER_ITEM))
+    user_item && setUser(user_item)
+  }, [])
+
+  console.log("user", user)
   return (
     <nav className="flex items-center justify-between flex-wrap bg-orange-700 p-6">
       <Link href="/" className="flex items-center text-white mr-6">
@@ -23,20 +34,44 @@ export const Header = () => {
           </span>
         </div>
       </Link>
-      <div>
-        <Link
-          href="/register"
-          className="inline-block text-sm px-4 py-2 leading-none border mr-2 rounded text-white border-orange-300 hover:text-white hover:border-white mt-4 lg:mt-0"
-        >
-          Đăng Ký
-        </Link>
-        <Link
-          href="/login"
-          className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-orange-300 hover:text-white hover:border-white mt-4 lg:mt-0"
-        >
-          Đăng Nhập
-        </Link>
-      </div>
+      {user ? (
+        <div className="text-white">
+          <span
+            className="inline-block leading-none text-white border-orange-300
+          hover:text-white hover:border-white mt-4 lg:mt-0"
+          >
+            {" "}
+            {user?.name}
+          </span>
+          <button
+            onClick={() => {
+              localStorage.clear()
+              router.push({
+                pathname: "/",
+                query: { returnUrl: router.asPath },
+              })
+            }}
+            className="inline-block leading-none border ml-2 rounded px-4 py-2 text-white border-orange-300 hover:text-white hover:border-white mt-4 lg:mt-0"
+          >
+            Thoát
+          </button>
+        </div>
+      ) : (
+        <div>
+          <Link
+            href="/register"
+            className="inline-block text-sm px-4 py-2 leading-none border mr-2 rounded text-white border-orange-300 hover:text-white hover:border-white mt-4 lg:mt-0"
+          >
+            Đăng Ký
+          </Link>
+          <Link
+            href="/login"
+            className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-orange-300 hover:text-white hover:border-white mt-4 lg:mt-0"
+          >
+            Đăng Nhập
+          </Link>
+        </div>
+      )}
     </nav>
   )
 }
