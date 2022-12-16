@@ -72,7 +72,7 @@ export default function Register() {
             className={`shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline ${
               errors?.username ? "border-red-400" : "text-gray-700"
             }`}
-            ref={register}
+            {...register("username")}
           />
           {errors?.username && (
             <p className="text-red-500 text-sm mt-2">Vui lòng nhập username.</p>
@@ -96,7 +96,7 @@ export default function Register() {
             className={`shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline ${
               errors?.email ? "border-red-400" : "text-gray-700"
             }`}
-            ref={register}
+            {...register("email")}
           />
           {errors?.email && (
             <p className="text-red-500 text-sm mt-2">Vui lòng nhập email.</p>
@@ -120,7 +120,7 @@ export default function Register() {
             className={`shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline text-gray-700 ${
               errors?.password ? "border-red-400" : "text-gray-700"
             }`}
-            ref={register}
+            {...register("password")}
           />
           {errors?.password && (
             <p className="text-red-500 text-sm mt-2">Vui lòng nhập mật khẩu.</p>
