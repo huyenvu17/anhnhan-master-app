@@ -41,7 +41,7 @@ export const Header = () => {
           hover:text-white hover:border-white mt-4 lg:mt-0"
           >
             {" "}
-            {user?.name}
+            {user?.username}
           </span>
           <button
             onClick={() => {

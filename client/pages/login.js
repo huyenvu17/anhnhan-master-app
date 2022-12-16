@@ -42,11 +42,7 @@ export default function Login() {
 
   useEffect(() => {
     const authToken = localStorage.getItem(AUTH_TOKEN)
-    authToken &&
-      router.push({
-        pathname: "/",
-        query: { returnUrl: router.asPath },
-      })
+    authToken && router.replace("/")
   }, [])
 
   return (
