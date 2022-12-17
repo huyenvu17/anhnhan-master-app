@@ -4,7 +4,6 @@ import { Header } from "../components/Header"
 import { Layout } from "../components/Layout"
 import { AUTH_TOKEN } from "../constants/auth"
 import "../styles/globals.css"
-import Login from "./login"
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter()

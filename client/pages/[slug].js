@@ -1,5 +1,6 @@
 import { useRouter } from "next/router"
 import React, { useEffect } from "react"
+import { API_HOST } from "../constants/auth"
 
 export default function DocumentDetail({ documentInfo }) {
   const {
@@ -21,11 +22,8 @@ export default function DocumentDetail({ documentInfo }) {
 }
 
 export async function getServerSideProps({ params }) {
-  console.log("params", params)
   const { slug } = params
-  const response = await fetch(
-    `${process.env.PUBLIC_URL}/documents?filters[slug]=${slug}`,
-  )
+  const response = await fetch(`${API_HOST}/documents?filters[slug]=${slug}`)
   const document = await response.json()
   return {
     props: {

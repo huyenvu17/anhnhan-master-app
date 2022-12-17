@@ -3,6 +3,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { Header } from "../components/Header"
 import styles from "../styles/Home.module.css"
+import { API_HOST } from "../constants/auth"
 
 export const Category = {
   DoanhNghiep: "doanhnghiep",
@@ -10,6 +11,7 @@ export const Category = {
 }
 
 export default function Home({ documents }) {
+  console.log("documents", documents)
   return (
     <div className={styles.container}>
       <Head>
@@ -18,17 +20,17 @@ export default function Home({ documents }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
+      <main className="mb-20">
         <p className="text-4xl font-semibold text-center mt-10">
           Danh Mục Văn Bản
         </p>
 
-        <div className="grid grid-cols-2 gap-5">
+        <div className="grid grid-cols-2 gap-10 mx-20">
           <div className="">
             <p className="text-2xl font-semibold text-center mt-10">
               Doanh Nghiệp
             </p>
-            <div className="flex flex-col">
+            <div className="flex flex-col mt-3">
               {documents?.data
                 ?.filter(
                   (document) =>
@@ -39,7 +41,7 @@ export default function Home({ documents }) {
                   <Link
                     key={id}
                     href={attributes?.slug || ""}
-                    className="w-2/4 p-2 mx-auto border border-orange-300 hover:bg-orange-200 rounded-md shadow-lg space-x-4"
+                    className="w-full p-2 mx-auto my-1 border border-orange-300 hover:bg-orange-200 rounded-md shadow-lg space-x-4"
                   >
                     <span>&rarr;</span>
                     <span>{attributes?.name}</span>
@@ -49,7 +51,7 @@ export default function Home({ documents }) {
           </div>
           <div>
             <p className="text-2xl font-semibold text-center mt-10">Công Dân</p>
-            <div className="flex flex-col">
+            <div className="flex flex-col mt-3">
               {documents?.data
                 ?.filter(
                   (document) =>
@@ -60,7 +62,7 @@ export default function Home({ documents }) {
                   <Link
                     key={id}
                     href={attributes?.slug || ""}
-                    className="w-2/4 p-2 mx-auto border border-orange-300 hover:bg-orange-200 rounded-md shadow-lg space-x-4"
+                    className="w-full p-2 mx-auto my-1 border border-orange-300 hover:bg-orange-200 rounded-md shadow-lg space-x-4"
                   >
                     <span>&rarr;</span>
                     <span>{attributes?.name}</span>
@@ -72,11 +74,7 @@ export default function Home({ documents }) {
       </main>
 
       <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <a target="_blank" rel="noopener noreferrer">
           Nhan Nguyen 2022
         </a>
       </footer>
@@ -85,11 +83,8 @@ export default function Home({ documents }) {
 }
 
 export async function getServerSideProps() {
-  const response = await fetch(
-    `${process.env.PUBLIC_URL}/documents?populate[0]=category`,
-  )
+  const response = await fetch(`${API_HOST}/documents?populate[0]=category`)
   const data = await response.json()
-
   return {
     props: {
       documents: data,

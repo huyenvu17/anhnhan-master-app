@@ -1,10 +1,10 @@
-import Link from "next/link"
+import toast, { Toaster } from "react-hot-toast"
 import React, { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers"
 import axios from "axios"
-import { AUTH_TOKEN, USER_ITEM } from "../constants/auth"
+import { API_HOST, AUTH_TOKEN, USER_ITEM } from "../constants/auth"
 import { useRouter } from "next/router"
 
 export default function Login() {
@@ -28,14 +28,16 @@ export default function Login() {
       password: data?.password,
     }
     axios
-      .post("http://localhost:1337/api/auth/local", info)
+      .post(`${API_HOST}/auth/local`, info)
       .then((result) => {
         localStorage.setItem(AUTH_TOKEN, result?.data?.jwt)
         localStorage.setItem(USER_ITEM, JSON.stringify(result?.data?.user))
+        toast.success("Chào mừng bạn đến với hệ thống!")
         window.location.reload()
       })
       .catch((error) => {
-        if (error?.response?.status) {
+        if (error?.response?.status === 400) {
+          toast.error("Email hoặc mật khẩu không đúng.")
         }
       })
   }
@@ -47,6 +49,7 @@ export default function Login() {
 
   return (
     <div className="w-full max-w-lg mx-auto mt-10">
+      <Toaster position="top-right" />
       <p className="text-3xl font-semibold text-center my-5">Đăng Nhập</p>
       <form
         onSubmit={handleSubmit(onSubmit)}

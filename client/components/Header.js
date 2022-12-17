@@ -12,7 +12,6 @@ export const Header = () => {
     user_item && setUser(user_item)
   }, [])
 
-  console.log("user", user)
   return (
     <nav className="flex items-center justify-between flex-wrap bg-orange-700 p-6">
       <Link href="/" className="flex items-center text-white mr-6">
