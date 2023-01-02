@@ -1,5 +1,5 @@
 {
-  "name": "backend",
+  "name": "api",
   "private": true,
   "version": "0.1.0",
   "description": "A Strapi application",
@@ -11,19 +11,17 @@
   },
   "devDependencies": {},
   "dependencies": {
-    "@_sh/strapi-plugin-ckeditor": "^1.1.2",
-    "@strapi/plugin-i18n": "4.5.3",
-    "@strapi/plugin-users-permissions": "4.5.3",
-    "@strapi/strapi": "4.5.3",
+    "@strapi/plugin-i18n": "4.5.5",
+    "@strapi/plugin-users-permissions": "4.5.5",
+    "@strapi/strapi": "4.5.5",
     "better-sqlite3": "7.4.6",
-    "strapi-plugin-vercel-deploy": "^1.4.0",
-    "strapi-provider-upload-cloudinary": "^3.6.11"
+    "pg": "^8.8.0"
   },
   "author": {
     "name": "A Strapi developer"
   },
   "strapi": {
-    "uuid": "af156c8d-9dd1-4791-8898-85c1a808da22"
+    "uuid": "8a2a5794-0ec8-4a98-b8eb-2032ce5e21f2"
   },
   "engines": {
     "node": ">=14.19.1 <=18.x.x",
