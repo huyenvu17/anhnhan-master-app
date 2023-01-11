@@ -4,10 +4,10 @@ import { useForm } from "react-hook-form"
 import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers"
 import axios from "axios"
-import { API_HOST, AUTH_TOKEN, USER_ITEM } from "../constants/auth"
 import { useRouter } from "next/router"
+import { AUTH_TOKEN } from "../../../constants/auth"
 
-export default function Login() {
+export default function ProjectForm() {
   const router = useRouter()
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -21,6 +21,7 @@ export default function Login() {
     mode: "onBlur",
     resolver: yupResolver(schema),
   })
+
   const onSubmit = async (data) => {
     const info = {
       identifier: data?.email,
@@ -43,13 +44,15 @@ export default function Login() {
 
   useEffect(() => {
     const authToken = localStorage.getItem(AUTH_TOKEN)
-    authToken && router.replace("/")
+    !authToken && router.replace("/")
   }, [])
 
   return (
     <div className="w-full max-w-lg mx-auto mt-10">
       <Toaster position="top-right" />
-      <p className="text-3xl font-semibold text-center my-5">Đăng Nhập</p>
+      <p className="text-3xl font-semibold text-center my-5">
+        Đơn Đăng Ký Dự Án
+      </p>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
@@ -107,10 +110,6 @@ export default function Login() {
           Đăng Nhập
         </button>
       </form>
-
-      <p className="text-center text-gray-500 text-xs">
-        &copy;2022 Nhan Nguyen. All rights reserved.
-      </p>
     </div>
   )
 }

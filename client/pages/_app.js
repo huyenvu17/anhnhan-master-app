@@ -28,7 +28,7 @@ function MyApp({ Component, pageProps }) {
   function authCheck(url) {
     setUser(isAuthenticated)
     const authToken = localStorage.getItem(AUTH_TOKEN)
-    const publicPaths = ["/login", "/register"]
+    const publicPaths = ["/login", "/register", "/"]
     const path = url.split("?")[0]
     if (!authToken && !publicPaths.includes(path)) {
       setAuthorized(false)

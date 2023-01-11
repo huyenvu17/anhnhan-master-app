@@ -6,8 +6,8 @@ import styles from "../styles/Home.module.css"
 import { API_HOST } from "../constants/auth"
 
 export const Category = {
-  DoanhNghiep: "doanhnghiep",
-  CongDan: "congdan",
+  QuyTrinh: "quytrinh",
+  VanBan: "vanban",
 }
 
 export default function Home({ documents }) {
@@ -22,20 +22,20 @@ export default function Home({ documents }) {
 
       <main className="mb-20">
         <p className="text-4xl font-semibold text-center mt-10">
-          Danh Mục Văn Bản
+          Danh Mục Quản Lý Xây Dựng
         </p>
 
         <div className="grid grid-cols-2 gap-10 mx-20">
           <div className="">
             <p className="text-2xl font-semibold text-center mt-10">
-              Doanh Nghiệp
+              Các Bước Thực Hiện Dự Án Đầu Tư
             </p>
             <div className="flex flex-col mt-3">
               {documents?.data
                 ?.filter(
                   (document) =>
                     document?.attributes?.category?.data?.attributes?.name ===
-                    Category.DoanhNghiep,
+                    Category.QuyTrinh,
                 )
                 ?.map(({ attributes, id }) => (
                   <Link
@@ -50,13 +50,15 @@ export default function Home({ documents }) {
             </div>
           </div>
           <div>
-            <p className="text-2xl font-semibold text-center mt-10">Công Dân</p>
+            <p className="text-2xl font-semibold text-center mt-10">
+              Văn Bản Chấp Thuận
+            </p>
             <div className="flex flex-col mt-3">
               {documents?.data
                 ?.filter(
                   (document) =>
                     document?.attributes?.category?.data?.attributes?.name ===
-                    Category.CongDan,
+                    Category.VanBan,
                 )
                 ?.map(({ attributes, id }) => (
                   <Link
