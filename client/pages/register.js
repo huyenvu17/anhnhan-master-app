@@ -2,7 +2,7 @@ import Link from "next/link"
 import React, { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import * as yup from "yup"
-import { yupResolver } from "@hookform/resolvers"
+import { yupResolver } from "@hookform/resolvers/yup"
 import axios from "axios"
 import { useRouter } from "next/router"
 import { AUTH_TOKEN } from "../constants/auth"
@@ -17,7 +17,11 @@ export default function Register() {
     password: yup.string().required().min(6),
   })
 
-  const { register, handleSubmit, watch, errors } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     mode: "onBlur",
     resolver: yupResolver(schema),
   })
@@ -99,7 +103,11 @@ export default function Register() {
             {...register("email")}
           />
           {errors?.email && (
-            <p className="text-red-500 text-sm mt-2">Vui lòng nhập email.</p>
+            <p className="text-red-500 text-sm mt-2">
+              {errors?.email?.type === "email"
+                ? "Email không đúng định dạng. Vd: example@gmail.com"
+                : "Vui lòng nhập email"}
+            </p>
           )}
         </div>
 

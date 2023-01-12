@@ -2,7 +2,7 @@ import toast, { Toaster } from "react-hot-toast"
 import React, { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import * as yup from "yup"
-import { yupResolver } from "@hookform/resolvers"
+import { yupResolver } from "@hookform/resolvers/yup"
 import axios from "axios"
 import { API_HOST, AUTH_TOKEN, USER_ITEM } from "../constants/auth"
 import { useRouter } from "next/router"
@@ -13,11 +13,15 @@ export default function Login() {
   const [password, setPassword] = useState("")
 
   const schema = yup.object().shape({
-    email: yup.string().email().required(),
-    password: yup.string().required().min(6),
+    email: yup.string().required().email(),
+    password: yup.string().min(6).required(),
   })
 
-  const { register, handleSubmit, watch, errors } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     mode: "onBlur",
     resolver: yupResolver(schema),
   })
@@ -74,7 +78,11 @@ export default function Login() {
             {...register("email")}
           />
           {errors?.email && (
-            <p className="text-red-500 text-sm mt-2">Vui lòng nhập email.</p>
+            <p className="text-red-500 text-sm mt-2">
+              {errors?.email?.type === "email"
+                ? "Email không đúng định dạng. Vd: example@gmail.com"
+                : "Vui lòng nhập email"}
+            </p>
           )}
         </div>
 
